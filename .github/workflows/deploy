@@ -1,0 +1,51 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start application
+      run: npm start
+                  - nom : Télécharger un artefact de construction
+  utilisations : actions/download-artifact@v4.1.8
+  avec:
+    # Nom de l'artefact à télécharger. S'il n'est pas spécifié, tous les artefacts de l'exécution sont téléchargés.
+    nom: (optionnel
+    # Chemin de destination. Prend en charge l'expansion tilde de base. La valeur par défaut est $GITHUB_WORKSPACE
+    chemin : # facultatif
+    # Un modèle glob correspondant aux artefacts qui doivent être téléchargés. Ignoré si le nom est spécifié.
+    modèle : # facultatif
+    # Lorsque plusieurs artefacts correspondent, cela modifie le comportement des répertoires de destination. Si la valeur est true, les artefacts téléchargés se trouveront dans le même répertoire spécifié par path. Si la valeur est false, les artefacts téléchargés seront extraits dans des répertoires nommés individuels dans le chemin spécifié.
+    merge-multiple : # facultatif, la valeur par défaut est false
+    # Le jeton GitHub utilisé pour s'authentifier auprès de l'API GitHub. Ceci est requis lors du téléchargement d'artefacts à partir d'un autre référentiel ou d'une autre exécution de workflow. Si cela n'est pas spécifié, l'action tentera de télécharger des artefacts à partir du référentiel actuel et de l'exécution de workflow actuelle.
+    github-token : # facultatif
+    # Le propriétaire du référentiel et le nom du référentiel réunis par « / ». Si github-token est spécifié, il s'agit du référentiel à partir duquel les artefacts seront téléchargés.
+    repository: # facultatif, la valeur par défaut est ${{ github.repository }}
+    # L'ID de l'exécution du workflow à partir duquel l'artefact de téléchargement souhaité a été téléchargé. Si github-token est spécifié, il s'agit de l'exécution à partir de laquelle les artefacts seront téléchargés.
+    run-id : # facultatif, la valeur par défaut est ${{ github.run_id }}
+          
